@@ -15,12 +15,23 @@ class CalculateTemperature extends Component {
     }
 
     toCelsius = (fahrenheit) => {
-        return (fahrenheit - 32) * 5 / 9;
+        fahrenheit = this.getProperTemperature((fahrenheit - 32) * 5 / 9)
+        return fahrenheit;
     }
 
     toFahrenheit = (celsius) => {
-        return (celsius * 9 / 5) + 32;
+        celsius = this.getProperTemperature((celsius * 9 / 5) + 32)
+        return celsius;
     }
+
+    getProperTemperature(temperature) {
+        const parsedTemperature = parseFloat(temperature);
+        if (Number.isNaN(parsedTemperature)) {
+          return '';
+        }
+        const rounded = Math.round(parsedTemperature * 1000) / 1000;
+        return rounded.toString();
+      }
 
     handleTemperature = (type, event) => {
         let nextTemperature = 0
