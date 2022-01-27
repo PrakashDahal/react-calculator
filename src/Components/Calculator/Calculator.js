@@ -1,56 +1,111 @@
 import { Component } from "react";
+import './calculator.css'
 
 class Calculator extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { userInput: '' }
-    }
-
-    handleUserInput = (e) => {
-        let userVal = ''
-        if (e.target.value === 'AC') {
-            userVal = '0'
-        } else if(e.target.value === 'AC'){
-
-        } else {
-            userVal = this.state.userInput + e.target.value
+        this.state = {
+            calc: '',
+            result: ''
         }
-        this.setState({ userInput: userVal })
+
     }
+
 
     render() {
+        const ops = ['/', '*', '-', '+', '.']
 
-        const calculatorInputButtonsValues = [
-            '(', ')', '%', 'AC',
-            '7', '8', '9', '/',
-            '4', '5', '6', '*',
-            '1', '2', '3', '-',
-            '0', '.', '=', '+'
-        ]
+        const updateCalc = (value) => {
+            if (
+                (ops.includes(value) && this.state.calc === '') ||
+                (ops.includes(value) && ops.includes(this.state.calc.slice(-1)))
+            ) {
+                return;
+            }
 
-        const button = calculatorInputButtonsValues.map(val => {
-            return <div className="col-3 p-0" key={val}>
-                <button type="button" className="btn btn-outline-dark p-3 m-1" value={val} onClick={this.handleUserInput}>{val}</button>
+            this.setState({
+                calc: this.state.calc + value
+            })
+            if (!ops.includes(value)) {
+                this.setState({
+                    result: eval(this.state.calc + value).toString()
+                })
+            }
+        }
+
+        const calculate = () => {
+            if (!ops.includes(this.state.calc.slice(-1))) {
+                if (this.state.calc) {
+                    this.setState({
+                        calc: eval(this.state.calc).toString()
+                    })
+                }
+            }
+        }
+
+        const deleteValue = () => {
+            if (this.state.calc !== '') {
+                const val = this.state.calc.slice(0, -1);
+                let result = ''
+                if (ops.includes(val.slice(-1))) {
+                    result = eval(val.slice(0, -1))
+                } else {
+                    result = eval(val)
+                }
+                this.setState({
+                    calc: val,
+                    result: result
+                })
+            }
+        }
+
+        const reset = () => {
+            this.setState({
+                calc: '',
+                result: ''
+            })
+        }
+
+        const createDigits = () => {
+            const digits = [];
+            for (let i = 1; i < 10; i++) {
+                digits.push(
+                    <button key={i}
+                        onClick={() => updateCalc(i.toString())}>
+                        {i}
+                    </button>
+                )
+            }
+            return digits
+        }
+
+
+        return <div className="calculator-page">
+            <div className="calculator">
+                <div className="output">
+                    {this.state.result ?
+                        <span>({this.state.result})</span> : ''} {this.state.calc || 0}
+                </div>
+                <div className="operators">
+                    <button onClick={reset}>AC</button>
+                    <button onClick={() => updateCalc('/')}>/</button>
+                    <button onClick={() => updateCalc('*')}>*</button>
+                    <button onClick={() => updateCalc('+')}>+</button>
+                    <button onClick={() => updateCalc('-')}>-</button>
+                    <button onClick={deleteValue}>DEL</button>
+                </div>
+
+                <div className="digits">
+                    {createDigits()}
+                    <button onClick={() => updateCalc('0')}>0</button>
+                    <button onClick={() => updateCalc('.')}>.</button>
+                    <button onClick={calculate}>=</button>
+                </div>
             </div>
-        })
-
-        return <div className="w-50">   
-            <form >
-                <div className="mb-3 mt-3">
-                    <label htmlFor="calculatorInput" className="form-label">Input Values</label>
-                    <input type="calculatorInput" className="form-control" id="calculatorInput" placeholder="2+5" name="calculatorInput" value={this.state.userInput} readOnly />
-                </div>
-
-                <div className="row btn-group btn-group-lg">
-                    {button}
-                    {/* <button type="button" class="btn btn-outline-dark">Sony</button> */}
-                </div>
-
-            </form>
         </div>
     }
 }
 
-    
+
 export default Calculator

@@ -28,8 +28,10 @@ class App extends Component {
             <option value="temperature">Temperature Converter</option>
           </select>
         </div>
-        {this.getCurrentSelectedComponent()}
       </div >
+      <div>
+        {this.getCurrentSelectedComponent()}
+      </div>
     </div>
   }
 }
