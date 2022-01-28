@@ -81,7 +81,7 @@ class Calculator extends Component {
         }
 
 
-        return <div className="calculator-page">
+        return <div className="calculator-page mt-5 d-flex justify-content-center">
             <div className="calculator">
                 <div className="output">
                     {this.state.result ?

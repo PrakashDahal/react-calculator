@@ -1,9 +1,11 @@
 :root{
     --primary: #313715;
-    --secondary: #5F0F40;
-    --dark: #131a26;
+    --secondary: #7B6D8D;
+    /* --dark: #131a26; */
+    --dark: #1A181B;
     --light: #9DA3A4;
     --medium-blue: #166088;
+    --yellow-color: #F4B860
 }
 
 * {
@@ -13,10 +15,10 @@
 }
 
 .calculator-page{
-    align-items: center;
+    /* align-items: center;
     display: flex;
-    justify-content: center;
-    min-height: 70vh;
+    justify-content: center; */
+    /* min-height: 70vh; */
     /* padding: 16px; */
 } 
 
@@ -64,7 +66,7 @@ button:hover {
 
 .operators button {
     flex: 1 1 0%;
-    background-color: var(--medium-blue);
+    background-color: var(--secondary);
     font-weight: 700;
 }
 

@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentSelection: 'temperature'
+      currentSelection: 'calculator'
     }
   }
 
@@ -20,16 +20,14 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App">
-      <div className='container-fluid p-3'>
-        <div className='w-25 my-3'>
-          <select className="form-select form-select-lg" value={this.state.currentSelection} onChange={this.handleCurrentSelection}>
-            <option value="calculator">Calculator</option>
-            <option value="temperature">Temperature Converter</option>
-          </select>
-        </div>
-      </div >
-      <div>
+    return <div className="App p-3">
+      <div className='container my-3 w-50'>
+        <select className="form-select form-select-lg bg-opacity-10" value={this.state.currentSelection} onChange={this.handleCurrentSelection}>
+          <option value="calculator">Calculator</option>
+          <option value="temperature">Temperature Converter</option>
+        </select>
+      </div>
+      <div className='container w-50'>
         {this.getCurrentSelectedComponent()}
       </div>
     </div>
