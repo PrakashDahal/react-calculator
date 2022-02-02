@@ -15,17 +15,28 @@ class CalculateTemperature extends Component {
     }
 
     toCelsius = (fahrenheit) => {
-        return (fahrenheit - 32) * 5 / 9;
+        fahrenheit = this.getProperTemperature((fahrenheit - 32) * 5 / 9)
+        return fahrenheit;
     }
 
     toFahrenheit = (celsius) => {
-        return (celsius * 9 / 5) + 32;
+        celsius = this.getProperTemperature((celsius * 9 / 5) + 32)
+        return celsius;
+    }
+
+    getProperTemperature(temperature) {
+        const parsedTemperature = parseFloat(temperature);
+        if (Number.isNaN(parsedTemperature)) {
+            return '';
+        }
+        const rounded = Math.round(parsedTemperature * 1000) / 1000;
+        return rounded.toString();
     }
 
     handleTemperature = (type, event) => {
         let nextTemperature = 0
         let nextTemperateureType = ''
-        if(type === this.temperatureShortHandEnum.Celsus){
+        if (type === this.temperatureShortHandEnum.Celsus) {
             nextTemperature = this.toFahrenheit(event.target.value)
             nextTemperateureType = this.temperatureShortHandEnum.Fahrenheit
         } else {
@@ -36,19 +47,21 @@ class CalculateTemperature extends Component {
     }
 
     render() {
-        return <div>
+        return <div className="mt-5">
             <TemperatureInput temperature={this.state.c} temperatureType={this.temperatureShortHandEnum.Celsus} handleTemperature={this.handleTemperature} />
             <TemperatureInput temperature={this.state.f} temperatureType={this.temperatureShortHandEnum.Fahrenheit} handleTemperature={this.handleTemperature} />
-            <WaterBoilingPoint celsus={this.state.c} />
+            <div className="mt-4">
+                <WaterBoilingPoint celsus={this.state.c} />
+            </div>
         </div>
     }
 }
 
 function WaterBoilingPoint(props) {
     if (props.celsus >= 100) {
-        return <p>Water Boils at {props.celsus} degree Celsus</p>
+        return <b>Water Boils at {props.celsus} degree Celsus</b>
     } else {
-        return <p>Water won't boil at {props.celsus} degree Celsus</p>
+        return <b>Water won't boil at {props.celsus} degree Celsus</b>
     }
 }
 
