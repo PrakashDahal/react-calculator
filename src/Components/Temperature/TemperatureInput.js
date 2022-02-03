@@ -1,11 +1,10 @@
-import { Component } from "react";
+import React, { Component }  from 'react';
 import "../../App.css";
 const scaleName = {
     c: 'Celsius',
     f: 'Fahrenheit'
 }
 class TemperatureInput extends Component {
-
     render() {
         const { temperature, temperatureType, handleTemperature } = this.props
         return <div className="form-group m-2">

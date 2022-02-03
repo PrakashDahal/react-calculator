@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component }  from 'react';
 import './App.css';
 import Calculator from './Components/Calculator/Calculator';
 import CalculateTemperature from './Components/Temperature/CalculateTemperature';

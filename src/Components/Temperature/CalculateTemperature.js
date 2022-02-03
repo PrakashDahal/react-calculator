@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component }  from 'react';
 import TemperatureInput from "./TemperatureInput";
 
 class CalculateTemperature extends Component {
